@@ -7,5 +7,17 @@
   "private": true,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "client": "cd packages/client && yarn dev",
+    "server": "cd packages/server && yarn dev",
+    "client-add": "cd packages/client && yarn add",
+    "client-remove": "cd packages/client && yarn remove",
+    "server-add": "cd packages/server && yarn add",
+    "server-remove": "cd packages/server && yarn remove"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  }
 }
