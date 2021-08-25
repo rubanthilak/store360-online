@@ -2,9 +2,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 const signup = require("./routes/signup");
 const login= require("./routes/login");
-const createForm = require("./routes/createForm")
 const express = require("express");
-const deleteDetail = require("./routes/deleteFile")
 const app = express();
 
 // if (!config.get("jwtPrivateKey")) {
