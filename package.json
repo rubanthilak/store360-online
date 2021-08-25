@@ -1,0 +1,12 @@
+{
+  "name": "store360-online",
+  "version": "0.0.1",
+  "description": "Online Ecommerce Store",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@store360-online/server",
+  "version": "0.0.1",
+  "description": "Server-Side",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@store360-online/client",
+  "version": "0.0.1",
+  "description": "Client-Side",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}
