@@ -8,10 +8,9 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send("error");
+  if (error) return res.status(400).send("Request Body Not Found");
 
   let user = await User.findOne({ username: req.body.username });
-  console.log(user)
   if (!user) return res.status(400).send("Invalid username");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
