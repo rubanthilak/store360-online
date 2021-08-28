@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+//Router
 import { BrowserRouter } from "react-router-dom";
+//Redux
 import store from "./store/index";
 import { Provider } from "react-redux";
+//Tailwind CSS
 import "./index.css";
 import App from "./App";
 
