@@ -11,13 +11,13 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send("Request Body Not Found");
 
   let user = await User.findOne({ username: req.body.username });
-  if (!user) return res.status(400).send("Invalid username");
+  if (!user) return res.status(401).send("Invalid username");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid password.");
 
   const token = user.generateAuthToken();
-  res.send(token);
+  res.status(201).json(token);
 });
 
 function validate(req) {
