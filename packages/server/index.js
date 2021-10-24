@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/vitasoft')
   .catch(err => console.error('Could not connect to MongoDB...'));
 
 app.use(cors({
-    origin: '*'
+    origin: 'http://localhost:3000'
 }));
 app.use(express.json());
 app.use("/login", login);

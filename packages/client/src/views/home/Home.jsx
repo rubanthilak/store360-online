@@ -1,7 +1,12 @@
 import React from 'react';
+import TopBar from '../../components/bar/TopBar';
 
 function Home() {
-    return <h1>The Home Page</h1>
+    return (
+        <section>
+            <TopBar></TopBar>
+        </section>
+    )
 }
 
 export default Home;
