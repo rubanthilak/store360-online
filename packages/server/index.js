@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost/vitasoft')
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
+
 app.use(express.json());
 app.use("/login", login);
 app.use("/signup", signup);

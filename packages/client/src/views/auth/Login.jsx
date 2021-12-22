@@ -91,7 +91,7 @@ function Login() {
           value={password}
           onChange={passwordHandler}
         />
-        <Link to="/forgot-password" className="text-sm text-blue-600 font-medium">
+        <Link to="/forgot-password" className="inline text-sm text-blue-600 font-medium">
           Forgot Password ?
         </Link>
         <BaseButton label="LOGIN" onClick={sendLoginRequest} />
