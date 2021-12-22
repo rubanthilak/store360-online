@@ -2,7 +2,7 @@ import React from 'react';
 
 function BaseButton(params) {
     return (
-        <button className="bg-blue-600 text-white font-bold py-1">{params.label}</button>
+        <button onClick={params.onClick} className="bg-blue-600 active:bg-blue-400 text-white font-medium py-2">{params.label}</button>
     )
 }
 
