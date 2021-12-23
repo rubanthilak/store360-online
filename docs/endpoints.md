@@ -68,6 +68,11 @@
     type: BOOLEAN,
     defaultValue: false,
     allowNull: true
+  },
+  productFeatured:{
+    type: BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   }
 }
 ```
