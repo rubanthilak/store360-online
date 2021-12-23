@@ -1,40 +1,42 @@
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const bcrypt = require('bcrypt');
-const _ = require('lodash');
-const {User, validate} = require('../models/user');
-const mongoose = require('mongoose');
-const express = require('express');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const _ = require("lodash");
+const express = require("express");
 const router = express.Router();
+const { executeSqlQuery } = require("../database/sql");
+const { response } = require("express");
+const { User, validateCreateRequest } = require("../models/User");
 
-router.post('/', async (req, res) => {
-  try{
+router.post("/", async (req, res) => {
+  try {
+    const { userName, email, password, repeat_password, phone } = req.body;
+    const isError = validateCreateRequest(req.body).error;
 
-    const { error } = validate(req.body); 
-    if (error) return res.status(400).send(error.details[0].message);
-  
-    let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).send('User already registered.');
+    if (isError) {
+      return res.status(400).json({ message: "Invalid Request" });
+    }
 
+    const user = new User({ userName, email, password, repeat_password, phone });
+    const temp = await User.getUserById(1);
 
-    user = new User({
-      username:req.body.username,
-      email:req.body.email,
-      password:req.body.password
-    })
-  
-    user = new User(_.pick(req.body, ['username', 'email', 'password']));
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
-  
-    const token = user.generateAuthToken();
-    res.header("x-auth-token",token).send(_.pick(user, ['_id', 'username', 'email']));
+    console.log(temp);
+
+    if(user.error){
+      return res.status(400).json({ message: user.error });
+    }
+
+    if(await user.checkUserExist()){
+      return res.status(400).json({ message: "User already exist" });
+    }
+   
+    await user.createUser();
+
+    res.status(200).json({ message: "created successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error || "SignUp Failed" });
   }
-  catch(err){
-    console.log(err);
-  }
-  });
-  
-  module.exports = router; 
-  
+
+});
+
+module.exports = router;
