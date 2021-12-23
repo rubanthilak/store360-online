@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 //Tailwind CSS
 import "./index.css";
 import App from "./App";
+import "./firebase-config";
 
 ReactDOM.render(
   <React.StrictMode>
