@@ -4,7 +4,6 @@ import BaseButton from "../../components/button/BaseButton";
 import Card from "../../components/common/Card";
 import { Link, useHistory  } from "react-router-dom";
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 function Login() {
   let [username, setUsername] = useState("");
@@ -44,47 +43,32 @@ function Login() {
    */
   async function sendLoginRequest() {
     if (validateCredentials) {
-      // const payload = {
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     username: username,
-      //     password: password,
-      //   }),
-      // };
-      // try {
-      //   const response = await fetch(
-      //     import.meta.env.VITE_APP_REST_API_BASE_URL + "/login",
-      //     payload
-      //   );
-      //   if (response.status === 201) {
-      //     const token = await response.json();
-      //     localStorage.setItem("auth-token", token);
-      //     history.push("/");
-      //   } else {
-      //     //Not Authenticated message here
-      //   }
-      // } catch (error) {
-      //   console.log("Error:", error);
-      // }
-      const auth = getAuth();
-      await signInWithEmailAndPassword(
-        auth,
-        "ruban@gmail.com",
-        "12345678"
-      );
-      getAuth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-        // Send token to your backend via HTTPS
-        console.log(idToken);
-        history.push("/");
-        // ...
-      }).catch(function(error) {
-        // Handle error
-        console.log(error);
-      });
+      const payload = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      };
+      try {
+        const response = await fetch(
+          import.meta.env.VITE_APP_REST_API_BASE_URL + "/login",
+          payload
+        );
+        if (response.status === 201) {
+          const token = await response.json();
+          localStorage.setItem("auth-token", token);
+          history.push("/");
+        } else {
+          //Not Authenticated message here
+        }
+      } catch (error) {
+        console.log("Error:", error);
+      }
     } else {
       //Not Valid message here
     }
