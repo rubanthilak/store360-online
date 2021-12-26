@@ -17,9 +17,7 @@ router.post("/", async (req, res) => {
     }
 
     const user = new User({ userName, email, password, repeat_password, phone });
-    const temp = await User.getUserById(1);
-
-    console.log(temp);
+   
 
     if(user.error){
       return res.status(400).json({ message: user.error });

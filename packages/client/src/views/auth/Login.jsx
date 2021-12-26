@@ -2,16 +2,16 @@ import React from "react";
 import TextField from "../../components/input/TextField";
 import BaseButton from "../../components/button/BaseButton";
 import Card from "../../components/common/Card";
-import { Link, useHistory  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
-  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  const history = useHistory();
+  let [errorState, setErrorState] = useState(null);
 
-  function usernameHandler(event) {
-    setUsername(event.target.value);
+  function emailHandler(event) {
+    setEmail(event.target.value);
   }
 
   function passwordHandler(event) {
@@ -19,22 +19,24 @@ function Login() {
   }
 
   /**
-   * Validates username and password.
+   * Validates email and password.
    * @returns Boolean
    */
   function validateCredentials() {
-    let _username = username.trim();
+    let _email = email.trim();
     let _password = password.trim();
     if (
-      _username === "" ||
-      _username === null ||
-      _username === undefined ||
+      _email === "" ||
+      _email === null ||
+      _email === undefined ||
       _password === "" ||
       _password === null ||
       _password === undefined
     ) {
+      setErrorState("Invalid Credentials, Please fill all the fields")
       return false;
     }
+    setErrorState(null);
     return true;
   }
 
@@ -42,33 +44,8 @@ function Login() {
    * Send Http POST Request to REST API for authentication.
    */
   async function sendLoginRequest() {
-    if (validateCredentials) {
-      const payload = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      };
-      try {
-        const response = await fetch(
-          import.meta.env.VITE_APP_REST_API_BASE_URL + "/login",
-          payload
-        );
-        if (response.status === 201) {
-          const token = await response.json();
-          localStorage.setItem("auth-token", token);
-          history.push("/");
-        } else {
-          //Not Authenticated message here
-        }
-      } catch (error) {
-        console.log("Error:", error);
-      }
+    if (validateCredentials()) {
+      
     } else {
       //Not Valid message here
     }
@@ -81,15 +58,20 @@ function Login() {
     >
       <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
         <h1 className="font-bold text-2xl mb-1">Welcome Back !</h1>
+        {errorState && <p className="text-sm text-red-500">{errorState}</p>}
         <TextField
-          placeHolder="Username"
-          value={username}
-          onChange={usernameHandler}
+          placeHolder="Email"
+          value={email}
+          onChange={emailHandler}
+          type="email"
+          error={errorState}
         />
         <TextField
           placeHolder="Password"
           value={password}
           onChange={passwordHandler}
+          type="password"
+          error={errorState}
         />
         <Link to="/forgot-password" className="inline text-sm text-blue-600 font-medium">
           Forgot Password ?
