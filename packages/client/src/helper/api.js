@@ -16,41 +16,61 @@ axios.interceptors.request.use(
 
 //response interceptor to refresh token on receiving token expired error
 axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    function (error) {
-      const originalRequest = error.config;
-      let refreshToken = localStorage.getItem("refreshToken");
-  
-      if (
-        refreshToken &&
-        error.response.status === 401 &&
-        !originalRequest._retry
-      ) {
-        originalRequest._retry = true;
-        return axios
-          .post(`${baseUrl}/auth/refresh_token`, { refreshToken: refreshToken })
-          .then((res) => {
-            if (res.status === 200) {
-              localStorage.setItem("accessToken", res.data.accessToken);
-              console.log("Access token refreshed!");
-              return axios(originalRequest);
-            }
-          });
-      }
-      return Promise.reject(error);
+  (response) => {
+    return response;
+  },
+  function (error) {
+    const originalRequest = error.config;
+    let refreshToken = localStorage.getItem("refreshToken");
+    if (
+      refreshToken &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      return axios
+        .post(`${baseUrl}/refresh_token`, { refreshToken: refreshToken })
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem("accessToken", res.data.accessToken);
+            console.log("Access token refreshed!");
+            return axios(originalRequest);
+          }
+        });
     }
+    return Promise.reject(error);
+  }
+);
+
+
+const signup= async (body) => {
+  return await axios.post(
+    import.meta.env.VITE_APP_REST_API_BASE_URL + "/signup",
+    body
   );
-  
+}
 
-const api = {
-  signup: async (body) => {
-    return await axios.post(import.meta.env.VITE_APP_REST_API_BASE_URL + "/signup", body);
-  },
-  login: async (body) => {
-    return await axios.post(import.meta.env.VITE_APP_REST_API_BASE_URL+ '/login', body);
-  },
-};
+const login= async (body) => {
+  return await axios.post(
+    import.meta.env.VITE_APP_REST_API_BASE_URL + "/login",
+    body
+  );
+}
 
-export default api;
+const resetPassword= async (body) => {
+  return await axios.post(
+    import.meta.env.VITE_APP_REST_API_BASE_URL + "/reset-password",
+    body
+  );
+}
+
+const forgotPassword= async (body) => {
+  return await axios.post(
+    import.meta.env.VITE_APP_REST_API_BASE_URL + "/forgot-password",
+    body
+  );
+}
+
+export {axios}
+
+export default { signup, login, resetPassword, forgotPassword};

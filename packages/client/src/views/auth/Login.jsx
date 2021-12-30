@@ -4,6 +4,7 @@ import BaseButton from "../../components/button/BaseButton";
 import Card from "../../components/common/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { validateEmail } from "../../helper/inputValidator";
 
 function Login() {
   let [email, setEmail] = useState("");
@@ -23,17 +24,10 @@ function Login() {
    * @returns Boolean
    */
   function validateCredentials() {
-    let _email = email.trim();
-    let _password = password.trim();
-    if (
-      _email === "" ||
-      _email === null ||
-      _email === undefined ||
-      _password === "" ||
-      _password === null ||
-      _password === undefined
-    ) {
-      setErrorState("Invalid Credentials, Please fill all the fields")
+    setErrorState(null);
+    const { hasError } = validateEmail(email);
+    if (hasError || password.trim() === "") {
+      setErrorState("Invalid Credentials, Please confirm once again.");
       return false;
     }
     setErrorState(null);
@@ -43,12 +37,11 @@ function Login() {
   /**
    * Send Http POST Request to REST API for authentication.
    */
-  async function sendLoginRequest() {
+  async function sendLoginRequest(e) {
+    e.preventDefault()
     if (validateCredentials()) {
-      
-    } else {
-      //Not Valid message here
-    }
+      //TODO:send http req to backend
+    } 
   }
 
   return (
@@ -56,34 +49,39 @@ function Login() {
       className="container mx-auto flex items-center justify-center h-screen"
       style={{ minHeight: 600 + "px" }}
     >
-      <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
-        <h1 className="font-bold text-2xl mb-1">Welcome Back !</h1>
-        {errorState && <p className="text-sm text-red-500">{errorState}</p>}
-        <TextField
-          placeHolder="Email"
-          value={email}
-          onChange={emailHandler}
-          type="email"
-          error={errorState}
-        />
-        <TextField
-          placeHolder="Password"
-          value={password}
-          onChange={passwordHandler}
-          type="password"
-          error={errorState}
-        />
-        <Link to="/forgot-password" className="inline text-sm text-blue-600 font-medium">
-          Forgot Password ?
-        </Link>
-        <BaseButton label="LOGIN" onClick={sendLoginRequest} />
-        <p className="text-sm text-gray-500 font-medium">
-          New to Our Online Store ?{" "}
-          <span className="text-blue-600">
-            <Link to="/signup">Register</Link>
-          </span>
-        </p>
-      </Card>
+      <form>
+        <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
+          <h1 className="font-bold text-2xl mb-1">Welcome Back !</h1>
+          {errorState && <p className="text-sm text-red-500">{errorState}</p>}
+          <TextField
+            placeholder="Email"
+            value={email}
+            onChange={emailHandler}
+            type="email"
+            error={errorState}
+          />
+          <TextField
+            placeholder="Password"
+            value={password}
+            onChange={passwordHandler}
+            type="password"
+            error={errorState}
+          />
+          <Link
+            to="/forgot-password"
+            className="inline text-sm text-blue-600 font-medium"
+          >
+            Forgot Password ?
+          </Link>
+          <BaseButton label="LOGIN" onClick={sendLoginRequest} />
+          <p className="text-sm text-gray-500 font-medium">
+            New to Our Online Store ?{" "}
+            <span className="text-blue-600">
+              <Link to="/signup">Register</Link>
+            </span>
+          </p>
+        </Card>
+      </form>
     </section>
   );
 }
