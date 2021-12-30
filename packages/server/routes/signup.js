@@ -18,13 +18,8 @@ router.post("/", async (req, res) => {
 
     const user = new User({ userName, email, password, repeat_password, phone });
    
-
-    if(user.error){
-      return res.status(400).json({ message: user.error });
-    }
-
     if(await user.checkUserExist()){
-      return res.status(400).json({ message: "User already exist" });
+      return res.status(409).json({ message: "User already exist" });
     }
    
     await user.createUser();
@@ -32,7 +27,7 @@ router.post("/", async (req, res) => {
     res.status(200).json({ message: "created successfully" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error || "SignUp Failed" });
+    res.status(400).json({ message: "SignUp Failed" });
   }
 
 });

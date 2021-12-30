@@ -39,7 +39,7 @@ function Signup() {
   const [formState, dispatch] = useReducer(formsReducer, initialState);
   const [showError, setShowError] = useState(null)
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault() //prevents the form from submitting
 
     let isFormValid = true
@@ -76,8 +76,10 @@ function Signup() {
           password: formState.password.value,
           repeat_password: formState.repeat_password.value
         });
+        console.log(res);
       } catch (error) {
-        setShowError(error)
+        console.log(error.toString());
+        // setShowError(error)
       }
     }
 
@@ -133,7 +135,7 @@ function Signup() {
 
   return (
     <section className="container mx-auto flex items-center justify-center h-screen">
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <Card className="flex flex-col wrapper" style={{ width: 400 + "px" }}>
           <h1 className="font-bold text-2xl mb-1">Hey, Welcome</h1>
           {showError && <p  className="text-xs text-red-500">{showError}</p>}
@@ -224,7 +226,6 @@ function Signup() {
           <BaseButton
             label="SIGNUP"
             type="submit"
-            onClick={(e) => handleSubmit(e)}
           />
         </Card>
       </form>
