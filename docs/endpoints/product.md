@@ -1,4 +1,4 @@
-# **/products , /products/bulk & /product/:id**
+# **/products , /products/bulk & /products/:id**
 
 ## methods
 
