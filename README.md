@@ -4,7 +4,7 @@
 # Store 360 Online
 
 
-## An Online Store build using React, Tailwind CSS, Express and Mongo
+## An Online Store build using React, Tailwind CSS, Express and MySQL
 </div>
 
 <div align="center">
