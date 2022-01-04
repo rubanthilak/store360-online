@@ -6,13 +6,13 @@ router.post("/", async (req, res) => {
   try {
     const { userName, email, password, repeat_password, phone } = req.body;
     const isError = validateCreateRequest(req.body).error;
-    console.log(isError);
+
     if (isError) {
       return res.status(400).json({ message: "Invalid Request" });
     }
 
-    if(!await getUserByEmail(email)){
-      return res.status(400).json({ message: "User already exist" });
+    if(await getUserByEmail(email)){
+      return res.status(409).json({ message: "User already exist" });
     }
    
     let user = await createUser({ userName, email, password, repeat_password, phone });

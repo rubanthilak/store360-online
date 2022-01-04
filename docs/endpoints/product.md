@@ -1,4 +1,4 @@
-# /products & /product/:id
+# **/products , /products/bulk & /product/:id**
 
 ## methods
 
@@ -60,6 +60,10 @@
     type: FLOAT,
     allowNull: true
   },
+   productDiscount: {
+    type: FLOAT,
+    allowNull: false
+  },
   productBarcode: {
     type: NUMBER,
     allowNull: true
@@ -79,18 +83,18 @@
   
 ## functions
 
-- getProducts(sortingOrder:string, priceRange:Object, searchKeyword:string)
+- **getProducts**(sortingOrder:string, priceRange:Object, searchKeyword:string)
 
-  - priceRange = {
-    minPrice:float,
-    maxPrice:float
+  - *priceRange* = {
+      minPrice : float,
+      maxPrice : float
     }
-  - sortingOrder = 'ASC' (or) 'DESC'
-  - searchKeyword (optional)
+  - *sortingOrder* = 'ASC' (or) 'DESC'
+  - *searchKeyword* (optional)
   
-- getProductById(id:string)
-- addProduct(obj:Object)
-- addProductsInBulk(arr:ArrayOfObjects)
-- updateProduct(obj:Object)
-- updateProductInBulk(arr:ArrayOfObjects)
-- deleteProduct(id:string)
+- **getProductById**(id:string)
+- **addProduct**(obj:Object)
+- **addProductsInBulk**(arr:ArrayOfObjects)
+- **updateProduct**(obj:Object)
+- **updateProductInBulk**(arr:ArrayOfObjects)
+- **deleteProduct**(id:string)

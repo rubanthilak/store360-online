@@ -77,9 +77,10 @@ function Signup() {
           repeat_password: formState.repeat_password.value
         });
         console.log(res);
+        setShowError(res.data.message);
       } catch (error) {
-        console.log(error.toString());
-        // setShowError(error)
+        error = error.toJSON()
+        setShowError(error.message);
       }
     }
 

@@ -43,11 +43,22 @@ axios.interceptors.response.use(
 );
 
 
-const signup= async (body) => {
-  return await axios.post(
-    import.meta.env.VITE_APP_REST_API_BASE_URL + "/signup",
-    body
-  );
+const signup = (body) => {
+  return new Promise((resolve, reject)=> {
+    axios.post(
+      import.meta.env.VITE_APP_REST_API_BASE_URL + "/signup",
+      body,
+      {
+        validateStatus: function (status) {
+          return status === 400 || status === 409 || status === 200; // Resolve only if the status code is less than 500
+        }
+      }
+    ).then((response) => {
+      resolve(response);
+    }).catch(error => {
+      reject(error);
+    })
+  })
 }
 
 const login= async (body) => {
