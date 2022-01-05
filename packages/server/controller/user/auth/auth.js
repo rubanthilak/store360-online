@@ -35,58 +35,62 @@ const signup = async (req, res) => {
     res.status(200).json({ message: "created successfully" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error || "SignUp Failed" });
+    res.status(400).json({ message: error.message || "SignUp Failed" });
   }
 };
 
 //login controller
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ message: "Enter all Data" });
+  try {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ message: "Enter all Data" });
 
-  let user = await getUserByEmail(email);
-  if (!user)
-    return res
-      .status(404)
-      .json({ message: "User Not Found, Please Check Email" });
+    let user = await getUserByEmail(email);
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "User Not Found, Please Check Email" });
 
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword)
-    return res.status(401).json({ message: "Invalid Email or Password" });
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword)
+      return res.status(401).json({ message: "Invalid Email or Password" });
 
-  const token = jwt.sign(user, process.env.JWT_PRIVATE_KEY, {
-    expiresIn: process.env.JWT_TOKEN_EXPIRE_TIME,
-  });
-  const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_PRIVATE_KEY, {
-    expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRE_TIME,
-  });
-  const response = {
-    status: "Logged in",
-    accessToken: token,
-    refreshToken: refreshToken,
-  };
+    const token = jwt.sign(user, process.env.JWT_PRIVATE_KEY, {
+      expiresIn: process.env.JWT_TOKEN_EXPIRE_TIME,
+    });
+    const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_PRIVATE_KEY, {
+      expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRE_TIME,
+    });
+    const response = {
+      status: "Logged in",
+      accessToken: token,
+      refreshToken: refreshToken,
+    };
 
-  let redis = await redisClient();
-  redis.set(
-    refreshToken,
-    JSON.stringify({
-      userid: user.userid,
-      email: user.email,
-      phone: user.phone,
-      userName: user.userName,
-    })
-  );
+    let redis = await redisClient();
+    redis.set(
+      refreshToken,
+      JSON.stringify({
+        userid: user.userid,
+        email: user.email,
+        phone: user.phone,
+        userName: user.userName,
+      })
+    );
 
-  res.cookie("access_token", token, {
-    // secure: true,
-    httpOnly: true,
-  });
-  res.cookie("refresh_token", refreshToken, {
-    // secure: true,
-    httpOnly: true,
-  });
-  res.status(200).json({ message: "Login Successful", response });
+    res.cookie("access_token", token, {
+      // secure: true,
+      httpOnly: true,
+    });
+    res.cookie("refresh_token", refreshToken, {
+      // secure: true,
+      httpOnly: true,
+    });
+    res.status(200).json({ message: "Login Successful", response });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 //getToken Controller
@@ -110,7 +114,7 @@ const getToken = async (req, res) => {
     }
     res.status(401).json({ message: "Please login again" });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -143,30 +147,33 @@ const forgotPassword = async (req, res) => {
       })
     );
 
-    const link = `${process.env.BASE_URL}/resetPassword/${user.userid}/${token}`;
+    const link = `${process.env.BASE_URL}/resetPassword/${token}`;
     await sendEmail(user.email, "Password reset", link);
 
     res
       .status(200)
       .json({ message: "password reset link sent to your email account" });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ message: error.message });
   }
 };
 
 //reset password controller
 const resetPassword = async (req, res) => {
   try {
+    let redis = await redisClient();
     const { token } = req.params;
     const schema = Joi.object({
       password: Joi.string().min(3).max(30).required(),
     });
     const { error } = schema.validate(req.body);
+    console.log(token);
 
     if (error)
       return res.status(400).json({ message: error.details[0].message });
 
-    let redis = await redisClient();
+    jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+
     let user = await redis.get(token);
 
     if (!user)
@@ -184,8 +191,12 @@ const resetPassword = async (req, res) => {
     await redis.del(token);
     res.status(200).json({ message: "password reset successfully." });
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error });
+    console.log(error.message);
+    if (error.message == "jwt expired") {
+      await redis.del(token);
+      return res.status(401).json({ message: "Invalid link or expired" });
+    }
+    res.status(400).json({ message: error.message });
   }
 };
 
