@@ -54,9 +54,18 @@ function validateCreateRequest({
   });
 }
 
+async function updateUserOne(column,value,condition){
+  const query = `UPDATE users
+  SET ${column} = '${value}'
+  WHERE email = '${condition}'; `;
+  const res = await executeSqlQuery(query);
+  return res;
+}
+
 module.exports = { 
   validateCreateRequest,
   getUserByEmail,
   getUserById,
-  createUser
+  createUser,
+  updateUserOne,
 };

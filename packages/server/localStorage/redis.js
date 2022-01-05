@@ -20,5 +20,3 @@ var redisClient =  () => {
 };
 
 module.exports = redisClient;
-
-
