@@ -1,13 +1,15 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-// const { getUserByEmail } = require("../../../models/User");
+const Joi = require("joi");
 const redisClient = require("../../../localStorage/redis");
 const {
   validateCreateRequest,
   getUserByEmail,
   createUser,
+  updateUserOne,
 } = require("../../../models/User");
+const sendEmail = require("../../../utils/sendEmail");
 
 //signup controller
 const signup = async (req, res) => {
@@ -17,9 +19,9 @@ const signup = async (req, res) => {
     if (isError) {
       return res.status(400).json({ message: "Invalid Request" });
     }
-    
+
     if (await getUserByEmail(email)) {
-      return res.status(400).json({ message: "User already exist" });
+      return res.status(404).json({ message: "User already exist" });
     }
 
     let user = await createUser({
@@ -66,12 +68,15 @@ const login = async (req, res) => {
   };
 
   let redis = await redisClient();
-  redis.set(refreshToken, JSON.stringify({
-    userid: user.userid,
-    email: user.email,
-    phone: user.phone,
-    userName: user.userName,
-  }));
+  redis.set(
+    refreshToken,
+    JSON.stringify({
+      userid: user.userid,
+      email: user.email,
+      phone: user.phone,
+      userName: user.userName,
+    })
+  );
 
   res.cookie("access_token", token, {
     // secure: true,
@@ -88,8 +93,8 @@ const login = async (req, res) => {
 const getToken = async (req, res) => {
   try {
     let redis = await redisClient();
-    const { refreshToken} = req.body;
-    if ((!refreshToken))
+    const { refreshToken } = req.body;
+    if (!refreshToken)
       return res.status(400).json({ message: "Provide all detail" });
     let user = await redis.get(refreshToken);
     user = JSON.parse(user);
@@ -109,8 +114,85 @@ const getToken = async (req, res) => {
   }
 };
 
+//forgot password controller
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const schema = Joi.object({ email: Joi.string().email().required() });
+    const { error } = schema.validate(req.body);
+    if (error)
+      return res.status(400).json({ message: error.details[0].message });
+
+    const user = await getUserByEmail(email);
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "User with given email doesn't exist" });
+
+    const token = jwt.sign(user, process.env.JWT_PRIVATE_KEY, {
+      expiresIn: process.env.JWT_TOKEN_EXPIRE_TIME,
+    });
+    let redis = await redisClient();
+    redis.set(
+      token,
+      JSON.stringify({
+        userid: user.userid,
+        email: user.email,
+        phone: user.phone,
+        userName: user.userName,
+      })
+    );
+
+    const link = `${process.env.BASE_URL}/resetPassword/${user.userid}/${token}`;
+    await sendEmail(user.email, "Password reset", link);
+
+    res
+      .status(200)
+      .json({ message: "password reset link sent to your email account" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+//reset password controller
+const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const schema = Joi.object({
+      password: Joi.string().min(3).max(30).required(),
+    });
+    const { error } = schema.validate(req.body);
+
+    if (error)
+      return res.status(400).json({ message: error.details[0].message });
+
+    let redis = await redisClient();
+    let user = await redis.get(token);
+
+    if (!user)
+      return res.status(400).json({ message: "Invalid link or expired" });
+
+    user = JSON.parse(user);
+    const salt = await bcrypt.genSalt(10);
+    let password = await bcrypt.hash(req.body.password, salt);
+
+    let check = await updateUserOne("password", password, user.email);
+
+    if (!check)
+      return res.status(500).json({ message: "Something went wrong" });
+
+    await redis.del(token);
+    res.status(200).json({ message: "password reset successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error });
+  }
+};
+
 module.exports = {
   login,
   signup,
   getToken,
+  forgotPassword,
+  resetPassword,
 };
