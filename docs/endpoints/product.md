@@ -20,6 +20,10 @@
     type: STRING,
     allowNull: false
   },
+  productImageUrl: {
+    type: STRING,
+    allowNull: false
+  },
   productHscNumber: {
     type: NUMBER,
     allowNull: true
