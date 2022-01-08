@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './views/home/Home';
 import Products from './views/products/Products';
-import Login from './views/auth/Login';
-import Signup from './views/auth/Signup';
-import ForgotPassword from './views/auth/ForgotPassword';
-import ResetPassword from './views/auth/ResetPassword';
+import Login from './views/auth/login/index';
+import Signup from './views/auth/signup/index';
+import ForgotPassword from './views/auth/forgot-password/index';
+import ResetPassword from './views/auth/reset-password/index';
 
 function App() {
   return (

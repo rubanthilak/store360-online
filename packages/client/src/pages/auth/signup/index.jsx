@@ -4,10 +4,10 @@ import BaseButton from "../../components/button/BaseButton";
 import Card from "../../components/common/Card";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
-import { UPDATE_FORM } from "../../helper/formUtils";
+import { UPDATE_FORM } from "../../const/formUtils";
 import { validateInput } from "../../helper/inputValidator";
 import HttpRequest from "../../helper/api"
-import "./Signup.scss";
+import "./style.scss";
 
 const initialState = {
   userName: { value: "", touched: false, hasError: true, error: "" },
