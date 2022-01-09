@@ -7,9 +7,9 @@ function TopBar() {
       <div className="container mx-auto flex justify-between">
         <h1>LOGO</h1>
         <div className="flex gap-8">
-          <Link>Profile</Link>
-          <Link>Wishlist</Link>
-          <Link>Bag</Link>
+          <Link to="/">Profile</Link>
+          <Link to="/">Wishlist</Link>
+          <Link to="/">Bag</Link>
         </div>
       </div>
     </div>
