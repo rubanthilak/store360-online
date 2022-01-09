@@ -1,10 +1,10 @@
 import React from "react";
-import TextField from "../../components/input/TextField";
-import BaseButton from "../../components/button/BaseButton";
-import Card from "../../components/common/Card";
+import TextField from "@/components/input/TextField";
+import BaseButton from "@/components/button/BaseButton";
+import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { validateEmail } from "../../helper/inputValidator";
+import { validateEmail } from "@/helper/inputValidator";
 
 function Login() {
   let [email, setEmail] = useState("");

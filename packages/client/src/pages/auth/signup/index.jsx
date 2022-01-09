@@ -1,12 +1,12 @@
 import React from "react";
-import TextField from "../../components/input/TextField";
-import BaseButton from "../../components/button/BaseButton";
-import Card from "../../components/common/Card";
+import TextField from "@/components/input/TextField";
+import BaseButton from "@/components/button/BaseButton";
+import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
-import { UPDATE_FORM } from "../../const/formActionType";
-import { validateInput } from "../../helper/inputValidator";
-import HttpRequest from "../../helper/api";
+import { UPDATE_FORM } from "@/const/formActionType";
+import { validateInput } from "@/helper/inputValidator";
+import HttpRequest from "@/helper/api";
 import "./style.scss";
 
 const initialState = {

@@ -1,9 +1,9 @@
 import React from "react";
-import TextField from "../../components/input/TextField";
-import BaseButton from "../../components/button/BaseButton";
-import Card from "../../components/common/Card";
+import TextField from "@/components/input/TextField";
+import BaseButton from "@/components/button/BaseButton";
+import Card from "@/components/common/Card";
 import { useState } from "react";
-import {validatePassword} from "../../helper/inputValidator";
+import {validatePassword} from "@/helper/inputValidator";
 
 //TODO: Need to add Validator and Funtionality
 

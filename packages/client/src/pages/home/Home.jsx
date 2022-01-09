@@ -1,5 +1,5 @@
 import React from 'react';
-import TopBar from '../../components/bar/TopBar';
+import TopBar from '@/components/bar/TopBar';
 
 function Home() {
     return (
