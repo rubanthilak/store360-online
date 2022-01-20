@@ -28,9 +28,9 @@ function ForgotPassword() {
     <section className="container mx-auto flex items-center justify-center h-screen">
       <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
         <h1 className="font-bold text-2xl">Forgot Password 😅</h1>
-        {errorState && <p className="text-sm text-red-500">{errorState}</p>}
+        {errorState && <p className="text-sm text-danger">{errorState}</p>}
         <TextField onChange={emailHandler} placeholder="Enter Email" />
-        <p className="text-sm text-gray-500 font-medium">
+        <p className="text-sm text-primary-600 font-medium">
           Link to reset your password will be sent to this Email address.
         </p>
         <BaseButton onClick={sendPasswordResetRequest} label="CONFIRM EMAIL" />

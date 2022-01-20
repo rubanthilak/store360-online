@@ -139,7 +139,7 @@ function Signup() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <Card className="flex flex-col wrapper" style={{ width: 400 + "px" }}>
           <h1 className="font-bold text-2xl mb-1">Hey, Welcome</h1>
-          {showError && <p  className="text-xs text-red-500">{showError}</p>}
+          {showError && <p  className="text-xs text-danger">{showError}</p>}
           <TextField
             placeholder="Name"
             name="userName"
@@ -149,7 +149,7 @@ function Signup() {
             error={formState.userName.hasError && formState.userName.touched}
           />
           {formState.userName.touched && formState.userName.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.userName.error}
             </div>
           )}
@@ -163,7 +163,7 @@ function Signup() {
             error={formState.email.hasError && formState.email.touched}
           />
           {formState.email.touched && formState.email.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.email.error}
             </div>
           )}
@@ -176,7 +176,7 @@ function Signup() {
             error={formState.phone.hasError && formState.phone.touched}
           />
           {formState.phone.touched && formState.phone.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.phone.error}
             </div>
           )}
@@ -191,7 +191,7 @@ function Signup() {
             error={formState.password.hasError && formState.password.touched}
           />
           {formState.password.touched && formState.password.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.password.error}
             </div>
           )}
@@ -210,17 +210,17 @@ function Signup() {
           />
           {formState.repeat_password.touched &&
             formState.repeat_password.hasError && (
-              <div className="text-xs text-red-500 m-0">
+              <div className="text-xs text-danger m-0">
                 {formState.repeat_password.error}
               </div>
             )}
-          <p className="text-sm text-gray-500 font-medium my-3">
+          <p className="text-sm text-primary-600 font-medium my-3">
             By continuing, I agree to the{" "}
-            <span className="text-blue-600">
+            <span className="text-secondary">
               <Link to="/">Terms of Use</Link>
             </span>{" "}
             &{" "}
-            <span className="text-blue-600">
+            <span className="text-secondary">
               <Link to="/">Privacy Policy</Link>
             </span>
           </p>

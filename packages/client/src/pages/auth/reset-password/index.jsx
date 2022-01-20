@@ -40,7 +40,7 @@ function ResetPassword() {
       <form>
         <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
           <h1 className="font-bold text-2xl mb-1">Password Reset 🔐</h1>
-          {errorState && <p className="text-sm text-red-500">{errorState}</p>}
+          {errorState && <p className="text-sm text-danger">{errorState}</p>}
           <TextField
             placeholder="New Password"
             name="password"
@@ -59,7 +59,7 @@ function ResetPassword() {
             autoComplete="on"
             error={errorState}
           />
-          <p className="text-sm text-gray-500 font-medium">
+          <p className="text-sm text-primary-600 font-medium">
             Your new password must be different from the password used before.
           </p>
           <BaseButton onClick={handleSubmit} label="RESET NOW" />

@@ -52,7 +52,7 @@ function Login() {
       <form>
         <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
           <h1 className="font-bold text-2xl mb-1">Welcome Back !</h1>
-          {errorState && <p className="text-sm text-red-500">{errorState}</p>}
+          {errorState && <p className="text-sm text-danger">{errorState}</p>}
           <TextField
             placeholder="Email"
             value={email}
@@ -69,14 +69,14 @@ function Login() {
           />
           <Link
             to="/forgot-password"
-            className="inline text-sm text-blue-600 font-medium"
+            className="inline text-sm text-secondary font-medium"
           >
             Forgot Password ?
           </Link>
           <BaseButton label="LOGIN" onClick={sendLoginRequest} />
-          <p className="text-sm text-gray-500 font-medium">
+          <p className="text-sm text-primary-800 font-medium">
             New to Our Online Store ?{" "}
-            <span className="text-blue-600">
+            <span className="text-secondary">
               <Link to="/signup">Register</Link>
             </span>
           </p>

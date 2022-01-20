@@ -1,4 +1,5 @@
 @import url('http://fonts.cdnfonts.com/css/whitney-2');
+@import url("./styles/global.scss");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +9,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Whitney', "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-primary-100);
+  color: var(--color-primary-900);
 }
 
 code {

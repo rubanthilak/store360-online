@@ -4,7 +4,7 @@ function BaseButton(params) {
   return (
     <button
       onClick={params.onClick}
-      className="bg-blue-600 active:bg-blue-400 text-white font-medium py-2"
+      className={`bg-accent rounded hover:bg-accent-hover text-primary-100 font-medium py-2`}
       {...params}
     >
       {params.label}
