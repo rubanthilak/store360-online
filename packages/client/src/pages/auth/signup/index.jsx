@@ -8,6 +8,7 @@ import { UPDATE_FORM } from "@/const/formActionType";
 import { validateInput } from "@/helper/inputValidator";
 import HttpRequest from "@/helper/api";
 import "./style.scss";
+import Logo from "@/components/common/Logo";
 
 const initialState = {
   userName: { value: "", touched: false, hasError: true, error: "" },
@@ -135,10 +136,10 @@ function Signup() {
   }
 
   return (
-    <section className="container mx-auto flex items-center justify-center h-screen">
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <Card className="flex flex-col wrapper" style={{ width: 400 + "px" }}>
-          <h1 className="font-bold text-2xl mb-1">Hey, Welcome</h1>
+    <section className="container mx-auto flex-col flex items-center justify-center app-height">
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full sm:w-96 xl:w-4/12">
+        <Card className="flex flex-col wrapper shadow-none sm:shadow-lg">
+          <p className="font-semibold text-2xl">Hey, Welcome 👋</p>
           {showError && <p  className="text-xs text-danger">{showError}</p>}
           <TextField
             placeholder="Name"
@@ -154,7 +155,7 @@ function Signup() {
             </div>
           )}
           <TextField
-            placeholder="Email"
+            placeholder="Email Address"
             name="email"
             type="email"
             value={formState.email.value}
@@ -168,7 +169,7 @@ function Signup() {
             </div>
           )}
           <TextField
-            placeholder="Phone"
+            placeholder="Phone Number"
             name="phone"
             value={formState.phone.value}
             onChange={handleChange}
@@ -214,7 +215,7 @@ function Signup() {
                 {formState.repeat_password.error}
               </div>
             )}
-          <p className="text-sm text-primary-600 font-medium my-3">
+          <p className="text-sm my-5 text-primary-600 font-medium my-3">
             By continuing, I agree to the{" "}
             <span className="text-secondary">
               <Link to="/">Terms of Use</Link>

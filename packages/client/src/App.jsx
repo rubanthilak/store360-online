@@ -6,10 +6,12 @@ import Login from '@/pages/auth/login/index';
 import Signup from '@/pages/auth/signup/index';
 import ForgotPassword from '@/pages/auth/forgot-password/index';
 import ResetPassword from '@/pages/auth/reset-password/index';
+import TopBar from '@/components/bar/topbar/TopBar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App relative">
+      <TopBar></TopBar>
       <Switch>
         <Route path="/products" >
           <Products />

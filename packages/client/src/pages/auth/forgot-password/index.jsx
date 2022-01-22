@@ -4,6 +4,7 @@ import BaseButton from "@/components/button/BaseButton";
 import Card from "@/components/common/Card";
 import { useState } from "react";
 import {validateEmail} from "@/helper/inputValidator";
+import Logo from "@/components/common/Logo";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -25,8 +26,8 @@ function ForgotPassword() {
   }
 
   return (
-    <section className="container mx-auto flex items-center justify-center h-screen">
-      <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
+    <section className="container mx-auto flex flex-col items-center justify-center app-height">
+      <Card className="flex flex-col gap-y-4 w-full sm:w-96 shadow-none sm:shadow-lg">
         <h1 className="font-bold text-2xl">Forgot Password 😅</h1>
         {errorState && <p className="text-sm text-danger">{errorState}</p>}
         <TextField onChange={emailHandler} placeholder="Enter Email" />

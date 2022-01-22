@@ -1,10 +1,9 @@
 import React from 'react';
-import TopBar from '@/components/bar/TopBar';
 
 function Home() {
     return (
-        <section>
-            <TopBar></TopBar>
+        <section className='container mx-auto'>
+            <h1>Home Page</h1>
         </section>
     )
 }

@@ -5,6 +5,7 @@ import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { validateEmail } from "@/helper/inputValidator";
+import Logo from "@/components/common/Logo";
 
 function Login() {
   let [email, setEmail] = useState("");
@@ -46,12 +47,11 @@ function Login() {
 
   return (
     <section
-      className="container mx-auto flex items-center justify-center h-screen"
-      style={{ minHeight: 600 + "px" }}
+      className="container flex-col mx-auto flex items-center justify-center app-height"
     >
-      <form>
-        <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
-          <h1 className="font-bold text-2xl mb-1">Welcome Back !</h1>
+      <form className="w-full sm:w-96">
+        <Card className="flex flex-col gap-y-5 shadow-none sm:shadow-lg">
+          <p className="font-bold text-3xl">Welcome Back!</p>
           {errorState && <p className="text-sm text-danger">{errorState}</p>}
           <TextField
             placeholder="Email"
@@ -59,13 +59,15 @@ function Login() {
             onChange={emailHandler}
             type="email"
             error={errorState}
+            autoComplete="email"
           />
           <TextField
-            placeholder="Password"
-            value={password}
-            onChange={passwordHandler}
-            type="password"
-            error={errorState}
+          placeholder="Password"
+          value={password}
+          onChange={passwordHandler}
+          type="password"
+          error={errorState}
+          autoComplete="current-password"
           />
           <Link
             to="/forgot-password"

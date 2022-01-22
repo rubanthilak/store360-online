@@ -8,4 +8,11 @@ export default defineConfig({
     alias: [{ find: '@', replacement: path.resolve(__dirname, './src') }],
   },
   plugins: [reactRefresh()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/styles/mixin";`
+      }
+    }
+  }
 });

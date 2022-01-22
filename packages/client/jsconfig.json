@@ -7,7 +7,8 @@
       "@/pages/*": ["./pages/*"],
       "@/routes/*": ["./routes/*"],
       "@/helper/*": ["./helper/*"],
-      "@/const/*": ["./const/*"]
+      "@/const/*": ["./const/*"],
+      "@/style/*": ["./style/*"]
     }
   },
   "include": ["src"]
