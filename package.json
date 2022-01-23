@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "client": "cd packages/client && yarn dev",
+    "client-test": "cd packages/client && yarn storybook",
     "server": "cd packages/server && yarn dev",
     "client-add": "cd packages/client && yarn add",
     "client-remove": "cd packages/client && yarn remove",
