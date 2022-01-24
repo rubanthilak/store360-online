@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '@/components/avatar/Avatar';
+import Avatar from '@/components/avatar';
 
 function Home() {
     return (

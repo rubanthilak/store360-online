@@ -1,7 +1,7 @@
 // Avatar.stories.js|jsx
 import React from 'react';
 
-import Avatar from '@/components/avatar/Avatar';
+import Avatar from '@/components/avatar';
 
 export default {
   /* 👇 The title prop is optional.

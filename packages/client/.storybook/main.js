@@ -9,8 +9,17 @@ module.exports = {
   async viteFinal(config, { configType }) {
     // customize the Vite config here
     const svgrPlugin = require('vite-plugin-svgr')
+    const reactRefresh = require('@vitejs/plugin-react-refresh')
+    config.css = {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "./src/styles/mixin";`
+        }
+      }
+    }
     config.plugins = [
       ...config.plugins,
+      reactRefresh(),
       svgrPlugin({
         svgrOptions: {
           icon: true,
@@ -26,6 +35,10 @@ module.exports = {
       {
         find: "@/assets",
         replacement: path.resolve(__dirname, "../src/assets"),
+      },
+      {
+        find: "@/styles",
+        replacement: path.resolve(__dirname, "../src/styles"),
       },
       {
         find: "@/hooks",
@@ -49,7 +62,14 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-postcss"
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
   ],
   framework: "@storybook/react"
 }
