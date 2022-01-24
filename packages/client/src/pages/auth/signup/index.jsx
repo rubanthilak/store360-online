@@ -1,13 +1,14 @@
 import React from "react";
-import TextField from "../../components/input/TextField";
-import BaseButton from "../../components/button/BaseButton";
-import Card from "../../components/common/Card";
+import TextField from "@/components/input/TextField";
+import BaseButton from "@/components/button/BaseButton";
+import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
-import { UPDATE_FORM } from "../../const/formActionType";
-import { validateInput } from "../../helper/inputValidator";
-import HttpRequest from "../../helper/api";
+import { UPDATE_FORM } from "@/const/formActionType";
+import { validateInput } from "@/helper/inputValidator";
+import HttpRequest from "@/helper/api";
 import "./style.scss";
+import Logo from "@/components/common/Logo";
 
 const initialState = {
   userName: { value: "", touched: false, hasError: true, error: "" },
@@ -135,11 +136,11 @@ function Signup() {
   }
 
   return (
-    <section className="container mx-auto flex items-center justify-center h-screen">
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <Card className="flex flex-col wrapper" style={{ width: 400 + "px" }}>
-          <h1 className="font-bold text-2xl mb-1">Hey, Welcome</h1>
-          {showError && <p  className="text-xs text-red-500">{showError}</p>}
+    <section className="container mx-auto flex-col flex items-center justify-center app-height">
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full sm:w-96 xl:w-4/12">
+        <Card className="flex flex-col wrapper shadow-none sm:shadow-lg">
+          <p className="font-semibold text-2xl">Hey, Welcome 👋</p>
+          {showError && <p  className="text-xs text-danger">{showError}</p>}
           <TextField
             placeholder="Name"
             name="userName"
@@ -149,12 +150,12 @@ function Signup() {
             error={formState.userName.hasError && formState.userName.touched}
           />
           {formState.userName.touched && formState.userName.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.userName.error}
             </div>
           )}
           <TextField
-            placeholder="Email"
+            placeholder="Email Address"
             name="email"
             type="email"
             value={formState.email.value}
@@ -163,12 +164,12 @@ function Signup() {
             error={formState.email.hasError && formState.email.touched}
           />
           {formState.email.touched && formState.email.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.email.error}
             </div>
           )}
           <TextField
-            placeholder="Phone"
+            placeholder="Phone Number"
             name="phone"
             value={formState.phone.value}
             onChange={handleChange}
@@ -176,7 +177,7 @@ function Signup() {
             error={formState.phone.hasError && formState.phone.touched}
           />
           {formState.phone.touched && formState.phone.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.phone.error}
             </div>
           )}
@@ -191,7 +192,7 @@ function Signup() {
             error={formState.password.hasError && formState.password.touched}
           />
           {formState.password.touched && formState.password.hasError && (
-            <div className="text-xs text-red-500 m-0">
+            <div className="text-xs text-danger m-0">
               {formState.password.error}
             </div>
           )}
@@ -210,17 +211,17 @@ function Signup() {
           />
           {formState.repeat_password.touched &&
             formState.repeat_password.hasError && (
-              <div className="text-xs text-red-500 m-0">
+              <div className="text-xs text-danger m-0">
                 {formState.repeat_password.error}
               </div>
             )}
-          <p className="text-sm text-gray-500 font-medium my-3">
+          <p className="text-sm my-5 text-primary-600 font-medium my-3">
             By continuing, I agree to the{" "}
-            <span className="text-blue-600">
+            <span className="text-secondary">
               <Link to="/">Terms of Use</Link>
             </span>{" "}
             &{" "}
-            <span className="text-blue-600">
+            <span className="text-secondary">
               <Link to="/">Privacy Policy</Link>
             </span>
           </p>

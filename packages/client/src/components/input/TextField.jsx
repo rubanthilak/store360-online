@@ -18,7 +18,7 @@ const TextField = React.forwardRef(
     return (
       <InputElement
         ref={ref}
-        className={`border font-medium rounded-none border-gray-400 pl-2 py-2 focus:outline-none focus:ring-1 ${error? "border-red-600 focus:border-red-600 focus:ring-red-300" : "focus:border-blue-600"}`}
+        className={`border rounded font-medium rounded-none border-primary-300 pl-2 py-2 focus:outline-none focus:ring-1 ${error? "border-danger focus:border-danger focus:ring-danger" : "focus:border-primary-600 focus:ring-primary-600"}`}
         onChange={onChange}
         {...args}
       />

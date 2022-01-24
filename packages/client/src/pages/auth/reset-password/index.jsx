@@ -1,9 +1,10 @@
 import React from "react";
-import TextField from "../../components/input/TextField";
-import BaseButton from "../../components/button/BaseButton";
-import Card from "../../components/common/Card";
+import TextField from "@/components/input/TextField";
+import BaseButton from "@/components/button/BaseButton";
+import Card from "@/components/common/Card";
 import { useState } from "react";
-import {validatePassword} from "../../helper/inputValidator";
+import {validatePassword} from "@/helper/inputValidator";
+import Logo from "@/components/common/Logo";
 
 //TODO: Need to add Validator and Funtionality
 
@@ -36,11 +37,11 @@ function ResetPassword() {
   }
 
   return (
-    <section className="container mx-auto flex items-center justify-center h-screen">
-      <form>
-        <Card className="flex flex-col gap-y-4" style={{ width: 400 + "px" }}>
+    <section className="container mx-auto flex flex-col items-center justify-center app-height">
+      <form className="w-full sm:w-96">
+        <Card className="flex flex-col gap-y-4 shadow-none sm:shadow-lg">
           <h1 className="font-bold text-2xl mb-1">Password Reset 🔐</h1>
-          {errorState && <p className="text-sm text-red-500">{errorState}</p>}
+          {errorState && <p className="text-sm text-danger">{errorState}</p>}
           <TextField
             placeholder="New Password"
             name="password"
@@ -59,7 +60,7 @@ function ResetPassword() {
             autoComplete="on"
             error={errorState}
           />
-          <p className="text-sm text-gray-500 font-medium">
+          <p className="text-sm text-primary-600 font-medium">
             Your new password must be different from the password used before.
           </p>
           <BaseButton onClick={handleSubmit} label="RESET NOW" />

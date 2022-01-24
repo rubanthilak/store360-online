@@ -1,10 +1,11 @@
 import React from 'react';
-import TopBar from '../../components/bar/TopBar';
+import Avatar from '@/components/avatar';
 
 function Home() {
     return (
-        <section>
-            <TopBar></TopBar>
+        <section className='container mx-auto'>
+            <h1>Home Page</h1>
+            <Avatar></Avatar>
         </section>
     )
 }

@@ -1,11 +1,17 @@
 {
-    "compilerOptions": {
-      "jsx": "preserve",
-      "baseUrl": "./src",
-      "paths": {
-        "@/components/*": ["./components/*"],
-        "@/pages/*": ["./pages/*"],
-        "@/routes/*": ["./routes/*"],
-      },
-    },
-  }
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/assets/*": ["./assets/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/routes/*": ["./routes/*"],
+      "@/helper/*": ["./helper/*"],
+      "@/const/*": ["./const/*"],
+      "@/style/*": ["./style/*"]
+    }
+  },
+  "include": ["src"]
+}
