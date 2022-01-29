@@ -4,7 +4,7 @@ import BaseButton from "@/components/button/BaseButton";
 import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
-import { UPDATE_FORM } from "@/const/formActionType";
+import { UPDATE_FORM } from "@/const/type";
 import { validateInput } from "@/helper/inputValidator";
 import HttpRequest from "@/helper/api";
 import "./style.scss";

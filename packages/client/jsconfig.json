@@ -10,7 +10,8 @@
       "@/routes/*": ["./routes/*"],
       "@/helper/*": ["./helper/*"],
       "@/const/*": ["./const/*"],
-      "@/style/*": ["./style/*"]
+      "@/style/*": ["./style/*"],
+      "@/store/*": ["./store/*"]
     }
   },
   "include": ["src"]

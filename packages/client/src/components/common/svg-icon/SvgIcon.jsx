@@ -2,7 +2,7 @@ import React from "react";
 import useSVG from "@/hooks/useSVG";
 
 function SVGIcon(props) {
-  const { error, loading, SvgIcon } = useSVG(props.name);
+  const { error, loading, SvgIcon } = useSVG(props.icon);
   if (SvgIcon && !loading && !error) {
     return (
       <SvgIcon.ReactComponent
