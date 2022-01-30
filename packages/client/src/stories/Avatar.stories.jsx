@@ -1,6 +1,6 @@
 // Avatar.stories.js|jsx
 import React from 'react';
-
+import { BrowserRouter } from "react-router-dom";
 import Avatar from '@/components/avatar';
 
 export default {
@@ -10,6 +10,43 @@ export default {
   */
   title: 'Avatar',
   component: Avatar,
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
+  argTypes: {
+    type:{
+      options: ["circle", "square"],
+      control: { 
+        type: 'inline-radio'
+      },
+    } ,
+    size:{
+      options: ["small", "medium", "large", "x-large", "xx-large"],
+      control: { type: 'select' },
+    } ,
+    imageUrl: {
+      control: {type: 'text'}
+    },
+    href: {
+      control: {type: 'text'}
+    },
+    target: {
+      control: {type: 'text'}
+    },
+    label: {
+      control: {type: 'text'}
+    },
+  },
 };
 
-export const Default = () => <Avatar />;
+const Template = (args) => <Avatar {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args= {
+  
+}
