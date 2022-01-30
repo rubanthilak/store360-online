@@ -14,10 +14,6 @@ export default {
     max: {
         control: {type: 'number'}
     },
-    appearance: {
-        options: ["success", "danger", "primary", "default"],
-        control: { type: 'select' },
-    },
     children: {
         control: {type: 'text'}
     },
@@ -27,7 +23,9 @@ export default {
 const Template = (args) => <Badge {...args} />;
 
 export const Default = Template.bind({});
+
 Default.args = {
     max:1000,
-    children: 50
+    children: 50,
+    className: "bg-accent"
 }

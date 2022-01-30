@@ -43,8 +43,10 @@ export default {
   },
 };
 
-export const Default = Avatar.bind({});
+const Template = (args) => <Avatar {...args} />;
+
+export const Default = Template.bind({});
 
 Default.args= {
- 
+  
 }

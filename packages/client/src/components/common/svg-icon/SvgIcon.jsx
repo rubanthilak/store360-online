@@ -12,7 +12,7 @@ function SVGIcon(props) {
       />
     );
   }
-  return null;
+  return <div className={props.className}></div>;
 }
 
 export default SVGIcon;

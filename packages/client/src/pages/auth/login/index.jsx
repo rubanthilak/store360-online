@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@/components/input/TextField";
-import BaseButton from "@/components/button/BaseButton";
+import BaseButton from "@/components/button";
 import Card from "@/components/common/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
