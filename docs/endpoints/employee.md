@@ -26,10 +26,6 @@
     type: STRING,
     allowNull: false
   },
-  employeeAccessGroup: {
-    type: STRING - [Admin, Manager, Employee],
-    allowNull: false,
-  },
   email: {
     type: STRING,
     allowNull: false
