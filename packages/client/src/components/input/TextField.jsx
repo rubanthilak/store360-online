@@ -13,12 +13,12 @@ import React from "react";
  */
 
 const TextField = React.forwardRef(
-  ({ onChange, textarea = false, error, ...args },ref) => {
+  ({ onChange, textarea = false, error, ...args }, ref) => {
     const InputElement = textarea ? 'textarea' : 'input';
     return (
       <InputElement
         ref={ref}
-        className={`border rounded font-medium rounded-none border-primary-300 pl-2 py-2 focus:outline-none focus:ring-1 ${error? "border-danger focus:border-danger focus:ring-danger" : "focus:border-primary-600 focus:ring-primary-600"}`}
+        className={`border rounded font-medium border-primary-300 pl-2 py-2 focus:outline-none focus:ring-1 ${error? "border-danger focus:border-danger focus:ring-danger" : "focus:border-primary-600 focus:ring-primary-600"}`}
         onChange={onChange}
         {...args}
       />

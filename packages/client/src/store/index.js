@@ -1,7 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
+import create from 'zustand'
 
-const store = configureStore({
-  reducer: {},
-})
+const useStore = create(set => ({
+  cart: 0,
+  addToCart: () => set(state => ({ cart: state.cart + 1 })),
+  clearCart: () => set({ cart: 0 })
+}))
 
-export default store;
+export default useStore;
