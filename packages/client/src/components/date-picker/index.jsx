@@ -129,8 +129,8 @@ function DatePicker(props){
     }
 
     return (
-        <div className='relative' ref={wrapper}>
-            <div onClick={() => setOpen(!open)} className={`flex items-center justify-between cursor-pointer border rounded font-medium border-primary-300 p-2 ${open && "border-primary-600"} ${props.error && "border-danger"}`}>
+        <div className='relative select-none' ref={wrapper}>
+            <div onClick={() => setOpen(!open)} className={`flex items-center justify-between cursor-pointer border rounded font-medium border-primary-300 p-2 ${props.className} ${open && "border-primary-600"} ${props.error && "border-danger"}`}>
                 {
                     props.date != null
                     ? <p className='text-sm text-primary-900'>{getDateStringFromTimestamp(props.date.getTime())}</p>
@@ -141,9 +141,9 @@ function DatePicker(props){
             </div>
             {open && <Card className='absolute overflow-hidden top-full right-0 p-4' style={{width:'300px'}}>
                 <div className='flex justify-between mb-4 items-center'>
-                    <SVGIcon onClick={() => changeMonth(-1)} className='w-6 h-6' icon={'angle-left'} /> 
+                    <SVGIcon onClick={() => changeMonth(-1)} className='cursor-pointer w-6 h-6' icon={'angle-left'} /> 
                         <h1>{getMonthStr(state.month)} {state.year}</h1>
-                    <SVGIcon onClick={() => changeMonth(1)} className='w-6 h-6' icon={'angle-right'} /> 
+                    <SVGIcon onClick={() => changeMonth(1)} className='cursor-pointer w-6 h-6' icon={'angle-right'} /> 
                 </div>
                 <div>
                     <div className='grid grid-cols-7 mb-2'>
